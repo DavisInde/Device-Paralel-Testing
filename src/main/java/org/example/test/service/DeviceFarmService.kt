@@ -1,57 +1,50 @@
-package org.example.test.service;
+package org.example.test.service
 
-import org.example.test.base.Config;
-import org.example.test.base.ConfigConsumer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.example.test.models.Device;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.springframework.context.annotation.Configuration;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.time.Duration;
+import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.example.test.base.Config
+import org.example.test.base.ConfigConsumer
+import org.example.test.models.Device
+import org.springframework.context.annotation.Configuration
+import java.io.IOException
+import java.net.MalformedURLException
+import java.net.URI
+import java.net.URL
+import java.time.Duration
 
 /**
- *
- * */
+ * 
+ */
 @Configuration
-public class DeviceFarmService extends ConfigConsumer {
+class DeviceFarmService(config: Config) : ConfigConsumer(config) {
+    val availableDevices: Array<Device?>
+        get() {
+            val devicesUrl: URL?
+            try {
+                devicesUrl = URI.create(config?.baseUrl + "device-farm/api/device").toURL()
+            } catch (e: MalformedURLException) {
+                return arrayOfNulls(0)
+            }
 
-    public DeviceFarmService(Config config) {super(config);}
-
-    public Device[] getAvailableDevices() {
-        URL devicesUrl;
-        try {
-            devicesUrl = URI.create(config.baseUrl + "device-farm/api/device").toURL();
-        } catch (MalformedURLException e) {
-            return new Device[0];
-        }
-
-        Request request = new Request
-                .Builder()
+            val request = Request.Builder()
                 .get()
                 .url(devicesUrl)
-                .build();
+                .build()
 
-        OkHttpClient client = new OkHttpClient
-                .Builder()
+            val client = OkHttpClient.Builder()
                 .callTimeout(Duration.ofSeconds(15L))
-                .build();
+                .build()
 
-        try (Response res = client.newCall(request).execute()){
-
-            Gson gson = new GsonBuilder().create() ;
-            assert res.body() != null;
-
-            return gson.fromJson(res.body().string(), Device[].class);
-        } catch (IOException e) {
-            System.out.println("YAHHH " + e) ;
-            return new Device[0];
+            try {
+                client.newCall(request).execute().use { res ->
+                    val gson = GsonBuilder().create()
+                    val body = res.body?.string() ?: ""
+                    val converted = gson.fromJson<Array<Device?>?>(body, Array<Device>::class.java)
+                    return converted ?: arrayOfNulls(0)
+                }
+            } catch (e: IOException) {
+                return arrayOfNulls(0)
+            }
         }
-    }
 }

@@ -1,12 +1,5 @@
-package org.example.test.base;
+package org.example.test.base
 
-import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.AppiumDriver
 
-public abstract class BaseTestPage {
-
-    AppiumDriver driver ;
-
-    protected BaseTestPage(AppiumDriver driver) {
-        this.driver = driver;
-    }
-}
+abstract class BaseTestPage protected constructor(var driver: AppiumDriver?)

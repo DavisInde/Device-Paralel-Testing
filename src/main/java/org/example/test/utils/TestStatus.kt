@@ -1,14 +1,20 @@
-package org.example.test.utils;
+package org.example.test.utils
 
-public enum TestStatus {
+enum class TestStatus(value: String) {
     FAILED("failed"),
     PASSED("passed");
 
-    public final String value;
-    TestStatus(String value) {this.value = value;}
+    val value: String?
 
-    public static String getTestStatus(boolean status) {
-        if (status) return PASSED.value;
-        else return FAILED.value;
+    init {
+        this.value = value
+    }
+
+    companion object {
+        @JvmStatic
+        fun getTestStatus(status: Boolean): String? {
+            if (status) return PASSED.value
+            else return FAILED.value
+        }
     }
 }

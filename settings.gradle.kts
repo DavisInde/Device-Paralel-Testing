@@ -1,2 +1,2 @@
-rootProject.name = "Thestis"
+rootProject.name = "DeviceFarm"
 
