@@ -59,9 +59,9 @@ class DeviceFarmRunner : AbstractTestNGSpringContextTests() {
             val test = factory.createXmlTest(tag, xmlSuite, assignedDevice!!)
 
             val xmlClass = XmlClass()
-            xmlClass.setName("MainRunner")
+            xmlClass.name = "MainRunner"
 
-            test.setXmlClasses(List.of<XmlClass?>(xmlClass))
+            test.xmlClasses = listOf<XmlClass?>(xmlClass)
         }
         factory.saveXml(xmlSuite, filePath!!)
     }
