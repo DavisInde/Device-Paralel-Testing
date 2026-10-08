@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component
  */
 @Component
 class Config {
-    var baseUrl: String?
-    var appPackageId: String?
-    var appActivity: String?
-    var platform: String?
+    var baseUrl: String? = null
+    var appPackageId: String? = null
+    var appActivity: String? = null
+    var platform: String? = null
 
     //TODO: change baseUrl if not using docker
     constructor() {

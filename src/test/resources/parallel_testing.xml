@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="0" parallel="tests" name="Suit">
+<suite thread-count="1" parallel="tests" name="Suit">
+  <test thread-count="1" parallel="tests" name="Test @login on device 9HKBZDAYB6BMAMDE">
+    <parameter name="deviceUdid" value="9HKBZDAYB6BMAMDE"/>
+    <parameter name="hostName" value="http://127.0.0.1:4723"/>
+    <parameter name="cucumber.filter.tags" value="@login"/>
+    <parameter name="sdkVersion" value="15"/>
+    <parameter name="adbPort" value="5037"/>
+    <parameter name="deviceName" value="POCO X6 Pro 5G"/>
+    <parameter name="systemPort" value="52583"/>
+    <classes>
+      <class name="MainRunner"/>
+    </classes>
+  </test> <!-- Test @login on device 9HKBZDAYB6BMAMDE -->
 </suite> <!-- Suit -->

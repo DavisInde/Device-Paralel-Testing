@@ -14,7 +14,12 @@ class LoginStep {
     @Given("Login Test")
     fun login() {
         println("hehe")
-        testModule!!.runTest(Device())
+//        testModule!!.runTest(Device())
+    }
+
+    @Given("user on Splash Screen")
+    fun onSplashScreen() {
+        println("di splash screen")
     }
 
     @And("user tap asal asalan")
