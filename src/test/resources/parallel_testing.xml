@@ -8,7 +8,7 @@
     <parameter name="sdkVersion" value="15"/>
     <parameter name="adbPort" value="5037"/>
     <parameter name="deviceName" value="POCO X6 Pro 5G"/>
-    <parameter name="systemPort" value="52583"/>
+    <parameter name="systemPort" value="55301"/>
     <classes>
       <class name="MainRunner"/>
     </classes>

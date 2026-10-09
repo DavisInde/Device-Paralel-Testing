@@ -3,9 +3,8 @@ pipeline {
 
     parameters {
         string(
-            name: 'ARG_TEST_CLASS',
-            defaultValue:'TestEntryPoint',
-            description:'Target Test Class',
+            name: 'ARG_TEST_SCENARIO',
+            description:'Scenario To be tested',
             trim:true
           )
     }
@@ -13,7 +12,7 @@ pipeline {
     stages {
         stage("Run Test") {
             steps{
-                sh "./gradlew clean test --tests ${params.ARG_TEST_CLASS} --info"
+                sh "./gradlew clean test -PtestTags="@login" --info"
             }
         }
 
