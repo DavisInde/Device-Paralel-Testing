@@ -3,29 +3,24 @@ package hooks
 import io.cucumber.java.After
 import io.cucumber.java.Before
 import io.cucumber.java.Scenario
-import org.example.test.testdriver.AndroidTest
-import org.example.test.utils.TestStatus
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
-import java.util.Map
+import org.example.test.base.Config
+import org.example.test.testdriver.DriverFactory
 
 class TestDriver {
     @Before
     fun beforeTest() {
+        val driver = DriverFactory.create(DeviceContext.device.get(), Config())
+        DeviceContext.driver.set(driver)
     }
 
     @After
     fun afterTest(scenario: Scenario) {
-        AndroidTest.driver?.executeScript(
-            "devicefarm: setSessionStatus",
-            Map.of<String?, String?>("status", TestStatus.getTestStatus(!scenario.isFailed()))
-        )
-    }
-
-    @SpringBootTest
-    class TestApplication {
-        @Test
-        fun contextLoads() {
+        val driver = DeviceContext.driver.get()
+        try {
+            if (scenario.isFailed) println("FAILED on ${DeviceContext.device.get()?.name}: ${scenario.name}")
+        } finally {
+            driver?.quit()
+            DeviceContext.driver.remove()
         }
     }
 }

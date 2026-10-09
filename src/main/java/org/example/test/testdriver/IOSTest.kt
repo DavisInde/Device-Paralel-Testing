@@ -19,7 +19,7 @@ class IOSTest(config: Config) : ConfigConsumer(config) {
         val caps = DesiredCapabilities()
         caps.setCapability("platformName", "iOS")
         caps.setCapability("appium:automationName", "XCUITest")
-        caps.setCapability("appium:bundleId", config.appPackageId)
+        caps.setCapability("appium:bundleId", config.iosBundleId)
         caps.setCapability("appium:udid", device.udid)
         caps.setCapability("appium:wdaLocalPort", device.wdaLocalPort)
 

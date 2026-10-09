@@ -7,17 +7,12 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests
 import org.testng.annotations.BeforeClass
-import org.testng.annotations.Optional
-import org.testng.annotations.Parameters
 import org.testng.annotations.Test
 import org.testng.xml.XmlClass
-import java.util.*
-import java.util.List
 
 @SpringBootTest(classes = [MainApplication::class])
 class DeviceFarmRunner : AbstractTestNGSpringContextTests() {
     private var availableDevices: Array<Device?> = arrayOfNulls<Device?>(0)
-    private var scenarioTags = arrayOfNulls<String>(0)
 
     @Autowired
     private val service: DeviceFarmService? = null
@@ -29,44 +24,38 @@ class DeviceFarmRunner : AbstractTestNGSpringContextTests() {
     private val filePath: String? = null
 
     @BeforeClass
-    @Parameters("cucumber.filter.tags")
-    fun getConnectedDevice(@Optional(value = "cucumber.filter.tags") parameterizeTag: String?) {
-        val tag = getScenario(parameterizeTag)
-        scenarioTags = tag.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        Arrays.stream<String?>(scenarioTags).forEach { x: String? -> println(x) }
+    fun getConnectedDevices() {
+        val platform = prop("platform").lowercase().ifBlank { "both" }
         availableDevices = service!!.availableDevices
+            .filter { it != null && it.realDevice && !it.offline && !it.busy && !it.userBlocked }
+            .filter { platform == "both" || it!!.platform.equals(platform, true) }
+            .toTypedArray()
+        println("Real devices ($platform): " + availableDevices.joinToString { "${it?.platform}:${it?.name}:${it?.udid}" })
     }
 
     @Test
     fun runTest() {
-        generateXml(scenarioTags)
-    }
-
-    private fun generateXml(tags: Array<String?>) {
-        val totalDevice = availableDevices.size
-        val totalTest = tags.size
-
-        val totalThread = totalTest //Or device
-
-        val xmlSuite = factory!!.createXmlSuite(totalDevice)
-        for (i in 0..<totalThread) {
-            val tag = tags[i]
-
-            if (i >= totalDevice) break
-
-            val assignedDevice = availableDevices[i]
-
-            val test = factory.createXmlTest(tag, xmlSuite, assignedDevice!!)
-
+        val xmlSuite = factory!!.createXmlSuite(availableDevices.size)
+        for (device in availableDevices) {
+            val tag = tagFor(device!!)
+            println("${device.platform}:${device.name} -> tags '${tag}'")
+            val test = factory.createXmlTest(tag, xmlSuite, device)
             val xmlClass = XmlClass()
             xmlClass.name = "MainRunner"
-
             test.xmlClasses = listOf<XmlClass?>(xmlClass)
         }
         factory.saveXml(xmlSuite, filePath!!)
     }
 
-    private fun getScenario(parameterizedTag: String?): String {
-        return if (parameterizedTag == null) System.getProperty("cucumber.filter.tags") else parameterizedTag
+    /** Priority: per-device (udid) > per-platform > default -Ptags. Blank = run all scenarios */
+    private fun tagFor(device: Device): String {
+        val perDevice = prop("deviceTags").split(";")
+            .mapNotNull { it.split("=", limit = 2).takeIf { p -> p.size == 2 } }
+            .associate { it[0].trim() to it[1].trim() }
+        perDevice[device.udid]?.let { return it }
+        val perPlatform = if (device.platform.equals("ios", true)) prop("tagsIos") else prop("tagsAndroid")
+        return perPlatform.ifBlank { prop("tags") }
     }
+
+    private fun prop(key: String) = System.getProperty("run.$key").orEmpty().trim()
 }

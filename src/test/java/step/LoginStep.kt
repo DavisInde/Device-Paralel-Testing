@@ -1,20 +1,20 @@
 package step
 
+import hooks.DeviceContext
 import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
-import org.example.test.models.Device
-import org.example.test.testdriver.AndroidTest
-import org.springframework.beans.factory.annotation.Autowired
 
 class LoginStep {
-    @Autowired
-    var testModule: AndroidTest? = null
-
     @Given("Login Test")
     fun login() {
-        println("hehe")
-        testModule!!.runTest(Device())
+        println("Driver ready: " + DeviceContext.driver.get()?.sessionId)
+    }
+
+    @Given("user on Splash Screen")
+    fun onSplash() {
+        val d = DeviceContext.driver.get()
+        println("Splash on ${DeviceContext.device.get().name}, page source length: ${d.pageSource.length}")
     }
 
     @And("user tap asal asalan")

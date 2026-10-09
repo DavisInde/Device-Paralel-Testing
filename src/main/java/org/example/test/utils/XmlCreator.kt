@@ -40,11 +40,14 @@ class XmlCreator {
 
         /* Device farm exclusives */
         test.addParameter("deviceName", device.name)
+        test.addParameter("platform", device.platform)
         test.addParameter("hostName", device.host)
         test.addParameter("deviceUdid", device.udid)
         test.addParameter("sdkVersion", device.sdk)
         test.addParameter("systemPort", device.systemPort.toString())
         test.addParameter("adbPort", device.adbPort.toString())
+        test.addParameter("wdaLocalPort", device.wdaLocalPort.toString())
+        test.addParameter("deviceName", device.name)
         return test
     }
 
