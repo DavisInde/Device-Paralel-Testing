@@ -80,7 +80,8 @@ class Device {
         deviceUdid: String?,
         sdkVersion: String?,
         systemPort: Int,
-        adbPort: Int
+        adbPort: Int,
+        platform: String
     ) {
         this.adbPort = adbPort
         this.systemPort = systemPort
@@ -89,5 +90,6 @@ class Device {
         this.host = hostName
         this.sdk = sdkVersion
         this.udid = deviceUdid
+        this.platform = platform
     }
 }

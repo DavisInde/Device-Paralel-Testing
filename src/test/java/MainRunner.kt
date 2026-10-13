@@ -16,8 +16,11 @@ class MainRunner : AbstractTestNGCucumberTests() {
     @BeforeClass(alwaysRun = true)
     @Parameters("deviceName", "deviceUdid", "wdaLocalPort", "systemPort", "adbPort", "platform", "cucumber.filter.tags")
     fun setDevice(
-        name: String?, udid: String?, wdaPort: String,
-        systemPort: String, adbPort: String, platform: String?,
+        name: String?, udid: String?,
+        wdaPort: String,
+        systemPort: String,
+        adbPort: String,
+        platform: String?,
         @Optional("") tags: String
     ) {
         val device = Device()
