@@ -3,7 +3,6 @@ package step
 import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
-import org.example.test.models.Device
 import org.example.test.testdriver.AndroidTest
 import org.springframework.beans.factory.annotation.Autowired
 

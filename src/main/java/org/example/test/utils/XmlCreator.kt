@@ -45,6 +45,7 @@ class XmlCreator {
         test.addParameter("sdkVersion", device.sdk)
         test.addParameter("systemPort", device.systemPort.toString())
         test.addParameter("adbPort", device.adbPort.toString())
+        test.addParameter("platform", device.platform)
         return test
     }
 
