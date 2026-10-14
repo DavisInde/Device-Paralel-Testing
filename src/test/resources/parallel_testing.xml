@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="0" parallel="tests" name="Suit">
+<suite thread-count="50" parallel="tests" name="Suit">
+  <test thread-count="50" parallel="tests" name="Test @onboarding on device 935a8d2c96b14c33c67b120d57acbaa62565ae60">
+    <parameter name="deviceUdid" value="935a8d2c96b14c33c67b120d57acbaa62565ae60"/>
+    <parameter name="hostName" value="http://10.4.76.109:4723"/>
+    <parameter name="cucumber.filter.tags" value="@onboarding"/>
+    <parameter name="sdkVersion" value="16.7.16"/>
+    <parameter name="adbPort" value="0"/>
+    <parameter name="deviceName" value="iPhone X"/>
+    <parameter name="platform" value="ios"/>
+    <parameter name="systemPort" value="0"/>
+    <parameter name="wdaLocalPort" value="53752"/>
+    <classes>
+      <class name="MainRunner"/>
+    </classes>
+  </test> <!-- Test @onboarding on device 935a8d2c96b14c33c67b120d57acbaa62565ae60 -->
 </suite> <!-- Suit -->
