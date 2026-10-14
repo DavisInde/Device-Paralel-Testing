@@ -34,19 +34,27 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-tasks.register<Test>("runDeviceFarm") {
-    testClassesDirs = sourceSets["test"].output.classesDirs
-    classpath = sourceSets["test"].runtimeClasspath
-    useTestNG { suites("src/test/resources/device_farm/deviceFarm.xml") }
-    // -Ptags, -PtagsIos, -PtagsAndroid, -PdeviceTags="udid=@a;udid2=@b", -Pplatform=ios|android|both
-    listOf("tags", "tagsIos", "tagsAndroid", "deviceTags", "platform").forEach { key ->
-        systemProperty("run.$key", providers.gradleProperty(key).orElse("").get())
+tasks.register( name ="runDeviceFarm", type = Test::class) {
+    description = "This task is for getting available devices target for testing"
+
+    (findProperty("testTags") as String?)?.let {
+        systemProperty("TEST_TAGS", it)
     }
-    outputs.upToDateWhen { false }
+
+    useTestNG {
+        suites("src/test/resources/device_farm/deviceFarm.xml")
+    }
 }
 
+/*Command:
+./gradlew clean test -PtestTags="@login" --info
+
+run task test dan masukan scenario yang ingin di test contoh @login atau multiple @login,@bebas
+ */
 tasks.test {
-    dependsOn("runDeviceFarm")
-    useTestNG { suites("build/resources/test/parallel_testing.xml") }
-    outputs.upToDateWhen { false }
+    dependsOn(tasks.getByName("runDeviceFarm"))
+    useTestNG {
+        suites("src/test/resources/parallel_testing.xml")
+    }
+    mustRunAfter(tasks.getByName("runDeviceFarm"))
 }

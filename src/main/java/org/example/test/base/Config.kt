@@ -16,4 +16,5 @@ class Config(
     var xcodeOrgId: String? = System.getenv("XCODE_ORG_ID") ?: "",
     var xcodeSigningId: String? = "iPhone Developer",
     var updatedWDABundleId: String? = System.getenv("WDA_BUNDLE_ID") ?: "com.alfamart.WebDriverAgentRunner"
+    var platform: String? = "Apalah"
 )

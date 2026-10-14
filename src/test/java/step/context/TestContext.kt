@@ -1,4 +1,4 @@
-package step.context
+package context
 
 import io.cucumber.spring.CucumberContextConfiguration
 import org.example.test.MainApplication
