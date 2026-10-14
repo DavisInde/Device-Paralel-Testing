@@ -7,9 +7,6 @@ import org.example.test.context.GlobalContext
 import org.example.test.testdriver.AndroidTest
 import org.example.test.testdriver.IOSTest
 import org.example.test.utils.PlatformType
-import org.example.test.utils.TestStatus
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 
 class TestDriver {
     private var iOSTest: IOSTest = IOSTest()
@@ -27,12 +24,12 @@ class TestDriver {
 
     @After
     fun afterTest(scenario: Scenario) {
-        val driver = DeviceContext.driver.get()
+        val driver = GlobalContext.getAppiumDriver()
         try {
-            if (scenario.isFailed) println("FAILED on ${DeviceContext.device.get()?.name}: ${scenario.name}")
+            if (scenario.isFailed) println("FAILED on ${GlobalContext.getCurrentDevice().name}: ${scenario.name}")
         } finally {
-            driver?.quit()
-            DeviceContext.driver.remove()
+            driver.quit()
+            GlobalContext.removeAppiumDriver()
         }
     }
 }

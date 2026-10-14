@@ -12,6 +12,4 @@ abstract class HomePage(driver: AppiumDriver): BaseTestPage(driver) {
     fun testOrderMethodVisible() {
         waitUntilPresent(ORDER_METHOD)
     }
-
-
 }

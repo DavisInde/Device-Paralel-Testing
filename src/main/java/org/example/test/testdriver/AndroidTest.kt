@@ -31,7 +31,6 @@ class AndroidTest : ConfigConsumer(Config.instance) {
             )
             GlobalContext.setAppiumDriver(driver)
         } catch (e1: MalformedURLException) {
-            println("Yahh " + e1)
             println("Yahh " + e1.message)
         }
     }

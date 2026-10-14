@@ -22,7 +22,7 @@ class DeviceFarmService(config: Config) : ConfigConsumer(config) {
         get() {
             val devicesUrl: URL?
             try {
-                devicesUrl = URI.create(config?.baseUrl + "device-farm/api/device").toURL()
+                devicesUrl = URI.create(config.baseUrl + "device-farm/api/device").toURL()
             } catch (e: MalformedURLException) {
                 return arrayOfNulls(0)
             }
@@ -41,6 +41,7 @@ class DeviceFarmService(config: Config) : ConfigConsumer(config) {
                     val gson = GsonBuilder().create()
                     val body = res.body?.string() ?: ""
                     val converted = gson.fromJson<Array<Device?>?>(body, Array<Device>::class.java)
+                        ?.filter { it?.name == "Fontes 17 Pro" }?.toTypedArray()
                     return converted ?: arrayOfNulls(0)
                 }
             } catch (e: IOException) {

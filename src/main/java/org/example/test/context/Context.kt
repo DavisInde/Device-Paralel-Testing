@@ -22,4 +22,8 @@ object GlobalContext {
     fun getAppiumDriver(): AppiumDriver {
         return driver.get() ?: throw NullPointerException("Appium Driver belum diset")
     }
+
+    fun removeAppiumDriver() {
+        driver.remove()
+    }
 }

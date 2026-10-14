@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 data class Config(
     var baseUrl: String? = System.getenv("APPIUM_URL") ?: "http://localhost:4723/",
     /** Android package */
-    var appPackageId: String? = "com.alfamart.alfagift.staging",
+    var appPackageId: String? = "com.alfamart.alfagift.debug",
     var appActivity: String? = "",
     /** Must match appium --base-path. Running server uses "" (root). Use "wd/hub" if started with -pa /wd/hub */
     var basePath: String = System.getenv("APPIUM_BASE_PATH") ?: "",

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="50" parallel="tests" name="Suit">
-  <test thread-count="50" parallel="tests" name="Test @onboarding on device 935a8d2c96b14c33c67b120d57acbaa62565ae60">
-    <parameter name="deviceUdid" value="935a8d2c96b14c33c67b120d57acbaa62565ae60"/>
+<suite thread-count="1" parallel="tests" name="Suit">
+  <test thread-count="1" parallel="tests" name="Test @onboarding on device 66DBA22B-6FB9-4655-BE23-AAD2B4CE219F">
+    <parameter name="deviceUdid" value="66DBA22B-6FB9-4655-BE23-AAD2B4CE219F"/>
     <parameter name="hostName" value="http://10.4.76.109:4723"/>
     <parameter name="cucumber.filter.tags" value="@onboarding"/>
-    <parameter name="sdkVersion" value="16.7.16"/>
+    <parameter name="sdkVersion" value="26.4"/>
     <parameter name="adbPort" value="0"/>
-    <parameter name="deviceName" value="iPhone X"/>
+    <parameter name="deviceName" value="Fontes 17 Pro"/>
     <parameter name="platform" value="ios"/>
     <parameter name="systemPort" value="0"/>
-    <parameter name="wdaLocalPort" value="53752"/>
+    <parameter name="wdaLocalPort" value="57536"/>
     <classes>
       <class name="MainRunner"/>
     </classes>
-  </test> <!-- Test @onboarding on device 935a8d2c96b14c33c67b120d57acbaa62565ae60 -->
+  </test> <!-- Test @onboarding on device 66DBA22B-6FB9-4655-BE23-AAD2B4CE219F -->
 </suite> <!-- Suit -->
