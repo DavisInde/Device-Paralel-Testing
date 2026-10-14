@@ -1,4 +1,4 @@
-package step
+package step.login
 
 import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
@@ -13,7 +13,6 @@ class LoginStep {
     @Given("Login Test")
     fun login() {
         println("hehe")
-//        testModule!!.runTest(Device())
     }
 
     @Given("user on Splash Screen")

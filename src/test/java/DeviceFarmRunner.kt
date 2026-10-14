@@ -12,7 +12,6 @@ import org.testng.annotations.Parameters
 import org.testng.annotations.Test
 import org.testng.xml.XmlClass
 import java.util.*
-import java.util.List
 
 @SpringBootTest(classes = [MainApplication::class])
 class DeviceFarmRunner : AbstractTestNGSpringContextTests() {
@@ -30,10 +29,10 @@ class DeviceFarmRunner : AbstractTestNGSpringContextTests() {
 
     @BeforeClass
     @Parameters("cucumber.filter.tags")
-    fun getConnectedDevice(@Optional(value = "cucumber.filter.tags") parameterizeTag: String?) {
+    fun getConnectedDevice(@Optional parameterizeTag: String?) {
         val tag = getScenario(parameterizeTag)
         scenarioTags = tag.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        Arrays.stream<String?>(scenarioTags).forEach { x: String? -> println(x) }
+        Arrays.stream(scenarioTags).forEach { x: String? -> println(x) }
         availableDevices = service!!.availableDevices
     }
 
@@ -67,6 +66,7 @@ class DeviceFarmRunner : AbstractTestNGSpringContextTests() {
     }
 
     private fun getScenario(parameterizedTag: String?): String {
-        return if (parameterizedTag == null) System.getProperty("cucumber.filter.tags") else parameterizedTag
+        println("VISLOG ${System.getProperty("TEST_TAGS")}")
+        return parameterizedTag?.takeIf { it.isNotBlank() } ?: System.getProperty("TEST_TAGS")
     }
 }

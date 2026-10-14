@@ -29,4 +29,8 @@ class Config {
         this.appActivity = appActivity
         this.platform = platform
     }
+
+    companion object {
+        val instance: Config by lazy { Config() }
+    }
 }

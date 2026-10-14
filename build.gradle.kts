@@ -34,6 +34,12 @@ dependencies {
 }
 
 tasks.register( name ="runDeviceFarm", type = Test::class) {
+    description = "This task is for getting available devices target for testing"
+
+    (findProperty("testTags") as String?)?.let {
+        systemProperty("TEST_TAGS", it)
+    }
+
     useTestNG {
         suites("src/test/resources/device_farm/deviceFarm.xml")
     }
@@ -45,9 +51,6 @@ tasks.register( name ="runDeviceFarm", type = Test::class) {
 run task test dan masukan scenario yang ingin di test contoh @login atau multiple @login,@bebas
  */
 tasks.test {
-    (findProperty("testTags") as String?)?.let {
-        systemProperty("cucumber.filter.tags", it)
-    }
     dependsOn(tasks.getByName("runDeviceFarm"))
     useTestNG {
         suites("src/test/resources/parallel_testing.xml")
