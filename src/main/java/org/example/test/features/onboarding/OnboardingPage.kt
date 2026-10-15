@@ -9,7 +9,13 @@ abstract class OnboardingPage(driver: AppiumDriver): BaseTestPage(driver) {
     abstract val STORE_BUTTON: By
 
     fun isPromoButtonVisible(): Boolean {
-        return findView(PROMO_BUTTON) != null
+        return try {
+            val view = findView(PROMO_BUTTON)
+            println("VISLOG ${view}")
+            view?.isDisplayed ?: false
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun isStoreButtonVisible(): Boolean {

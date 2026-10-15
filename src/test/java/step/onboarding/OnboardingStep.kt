@@ -8,29 +8,32 @@ import org.example.test.context.GlobalContext
 import org.example.test.features.PageProvider
 import org.example.test.features.onboarding.AndroidOnboardingPage
 import org.example.test.features.onboarding.OnboardingPage
-import org.example.test.features.onboarding.iOSOnboardingPage
+import org.example.test.features.onboarding.IOSOnboardingPage
+import org.junit.jupiter.api.Assertions
 
 class OnboardingStep: BaseStep<OnboardingPage>() {
     override val targetPage: OnboardingPage  =
         PageProvider.getPage(
             GlobalContext.getAppiumDriver(),
             ::AndroidOnboardingPage,
-            ::iOSOnboardingPage
+            ::IOSOnboardingPage
         )
 
     @Given("User is on onboarding page")
-    fun onboardingPageIsVisible() {
+    fun onboardingPagesIsVisible() {
         println("Aku di onboarding")
     }
 
     @Then("promo button should be visible")
     fun promoButtonIsVisible() {
-        targetPage.isPromoButtonVisible()
+        val isVisible = targetPage.isPromoButtonVisible()
+        Assertions.assertTrue(isVisible)
     }
 
     @Given("store button should be visible")
     fun storeButtonIsVisible() {
-        targetPage.isStoreButtonVisible()
+        val isVisible = targetPage.isStoreButtonVisible()
+        Assertions.assertTrue(isVisible)
     }
 
     @When("user searches for a store by name")

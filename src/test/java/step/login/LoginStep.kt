@@ -1,4 +1,4 @@
-package step
+package step.login
 
 import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
@@ -6,16 +6,16 @@ import io.cucumber.java.en.Then
 import org.example.test.base.BaseStep
 import org.example.test.context.GlobalContext
 import org.example.test.features.PageProvider
-import org.example.test.features.home.AndroidHomePage
-import org.example.test.features.home.HomePage
-import org.example.test.features.home.IosHomePage
+import org.example.test.features.login.AndroidLoginPage
+import org.example.test.features.login.IOSLoginPage
+import org.example.test.features.login.LoginPage
 
-class LoginStep: BaseStep<HomePage>() {
-    override val targetPage: HomePage =
+class LoginStep: BaseStep<LoginPage>() {
+    override val targetPage: LoginPage =
         PageProvider.getPage(
             GlobalContext.getAppiumDriver(),
-            ::AndroidHomePage,
-            ::IosHomePage
+            ::AndroidLoginPage,
+            ::IOSLoginPage
         )
 
     @Given("Login Test")
