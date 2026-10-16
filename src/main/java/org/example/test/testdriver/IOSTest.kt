@@ -20,11 +20,12 @@ class IOSTest : ConfigConsumer(Config.instance) {
         caps.setCapability("appium:automationName", "XCUITest")
         caps.setCapability("appium:bundleId", config.appPackageId)
         caps.setCapability("appium:udid", device.udid)
+        caps.setCapability("appium:maxTypingFrequency", 20)
         caps.setCapability("appium:wdaLocalPort", device.wdaLocalPort)
 
         try {
             val driver = IOSDriver(
-                URI.create(this.config.baseUrl + "wd/hub").toURL(),
+                URI.create(this.config.baseUrl + this.config.basePath).toURL(),
                 caps
             )
             GlobalContext.setAppiumDriver(driver)

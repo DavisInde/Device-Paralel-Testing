@@ -7,6 +7,16 @@ import org.openqa.selenium.By
 abstract class OnboardingPage(driver: AppiumDriver): BaseTestPage(driver) {
     abstract val PROMO_BUTTON: By
     abstract val STORE_BUTTON: By
+    abstract val IDENTITY_NUMBER_FIELD: By
+    abstract val LOGIN_BUTTON: By
+
+    fun inputIdentityNumber(identityNumber: String) {
+        typeText(IDENTITY_NUMBER_FIELD, identityNumber)
+    }
+
+    fun tapLoginButton() {
+        tap(LOGIN_BUTTON)
+    }
 
     fun isPromoButtonVisible(): Boolean {
         return try {

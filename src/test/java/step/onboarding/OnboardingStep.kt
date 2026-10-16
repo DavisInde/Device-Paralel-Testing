@@ -36,6 +36,19 @@ class OnboardingStep: BaseStep<OnboardingPage>() {
         Assertions.assertTrue(isVisible)
     }
 
+    // Set it before running: export TEST_IDENTITY_NUMBER=<number>
+    @When("user enters identity number")
+    fun enterIdentityNumber() {
+        val identityNumber = System.getenv("TEST_IDENTITY_NUMBER")
+            ?: throw IllegalStateException("TEST_IDENTITY_NUMBER is not set")
+        targetPage.inputIdentityNumber(identityNumber)
+    }
+
+    @When("user taps login button on onboarding page")
+    fun tapLoginButton() {
+        targetPage.tapLoginButton()
+    }
+
     @When("user searches for a store by name")
     fun searchStoreByName() {
 

@@ -26,7 +26,7 @@ class AndroidTest : ConfigConsumer(Config.instance) {
 
         try {
             val driver = AndroidDriver(
-                URI.create(this.config.baseUrl + "wd/hub").toURL(),
+                URI.create(this.config.baseUrl + this.config.basePath).toURL(),
                 options
             )
             GlobalContext.setAppiumDriver(driver)

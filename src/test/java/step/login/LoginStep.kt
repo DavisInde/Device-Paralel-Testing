@@ -3,12 +3,14 @@ package step.login
 import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
+import io.cucumber.java.en.When
 import org.example.test.base.BaseStep
 import org.example.test.context.GlobalContext
 import org.example.test.features.PageProvider
 import org.example.test.features.login.AndroidLoginPage
 import org.example.test.features.login.IOSLoginPage
 import org.example.test.features.login.LoginPage
+import org.junit.jupiter.api.Assertions
 
 class LoginStep: BaseStep<LoginPage>() {
     override val targetPage: LoginPage =
@@ -37,6 +39,27 @@ class LoginStep: BaseStep<LoginPage>() {
     @Then("user should see")
     fun iSee() {
         println("I see")
+    }
+
+    @Then("login page should be visible")
+    fun loginPageShouldBeVisible() {
+        targetPage.waitUntilLoginPageVisible()
+    }
+
+    @When("user enters password {string}")
+    fun enterPassword(password: String) {
+        targetPage.inputPassword(password)
+        targetPage.hideKeyboard()
+    }
+
+    @When("user taps login button on login page")
+    fun tapLoginButton() {
+        targetPage.tapLoginButton()
+    }
+
+    @Then("incorrect password message should be visible")
+    fun incorrectPasswordMessageIsVisible() {
+        Assertions.assertTrue(targetPage.isIncorrectPasswordMessageVisible())
     }
 
 
