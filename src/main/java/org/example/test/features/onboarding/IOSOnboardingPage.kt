@@ -8,7 +8,5 @@ class IOSOnboardingPage(driver: IOSDriver): OnboardingPage(driver) {
     override val PROMO_BUTTON: By = By.id("onboarding.header.promo")
     override val STORE_BUTTON: By = By.id("onboarding.header.store")
     override val LOGIN_BUTTON: By = By.id("onboarding.loginCard.loginButton")
-    override val IDENTITY_NUMBER_FIELD: By = AppiumBy.iOSNsPredicateString(
-        "type == 'XCUIElementTypeTextField' AND name == 'onboarding.loginCard.identityNumberField'"
-    )
+    override val IDENTITY_NUMBER_FIELD: By = By.id("identityNumber")
 }
