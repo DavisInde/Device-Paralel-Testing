@@ -5,6 +5,11 @@ Feature: Onboarding
     Background:
         Given User is on onboarding page
 
+    @onboarding @magic
+    Scenario: Disable Magic Page
+        When user tap alfamart logo 5 times
+        Then User is on onboarding page
+
     @onboarding
     Scenario: Verify promo button is visible
         Then promo button should be visible

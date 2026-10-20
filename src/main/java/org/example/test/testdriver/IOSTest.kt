@@ -25,7 +25,7 @@ class IOSTest : ConfigConsumer(Config.instance) {
 
         try {
             val driver = IOSDriver(
-                URI.create(this.config.baseUrl + this.config.basePath).toURL(),
+                URI.create(this.config.baseUrl + "wd/hub").toURL(),
                 caps
             )
             GlobalContext.setAppiumDriver(driver)

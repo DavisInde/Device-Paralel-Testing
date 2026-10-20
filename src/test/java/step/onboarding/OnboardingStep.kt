@@ -10,6 +10,7 @@ import org.example.test.features.onboarding.AndroidOnboardingPage
 import org.example.test.features.onboarding.OnboardingPage
 import org.example.test.features.onboarding.IOSOnboardingPage
 import org.junit.jupiter.api.Assertions
+import java.lang.Thread.sleep
 
 class OnboardingStep: BaseStep<OnboardingPage>() {
     override val targetPage: OnboardingPage  =
@@ -47,6 +48,14 @@ class OnboardingStep: BaseStep<OnboardingPage>() {
     @When("user taps login button on onboarding page")
     fun tapLoginButton() {
         targetPage.tapLoginButton()
+    }
+
+    @When("user tap alfamart logo 5 times")
+    fun tapAlfamartLogo() {
+        repeat(5) {
+            targetPage.tapAlfamartLogo()
+            sleep(1000)
+        }
     }
 
     @When("user searches for a store by name")
